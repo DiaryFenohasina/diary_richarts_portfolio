@@ -1,0 +1,26 @@
+/* Header.css */
+.header {
+  @apply relative flex items-center p-6 border-b border-gray-300;
+}
+
+.menu-container {
+  @apply mx-auto border border-gray-300 rounded-2xl shadow-md px-6 py-2;
+}
+
+.menu-list {
+  @apply flex space-x-10 text-gray-600 font-bold;
+}
+
+.menu-list li a {
+  @apply hover:underline;
+}
+
+/* Responsive : menu dropdown sur mobile */
+@media (max-width: 768px) {
+  .menu-list {
+    @apply flex-col space-x-0 space-y-2 hidden; /* caché par défaut */
+  }
+  .menu-list.show {
+    @apply flex; /* afficher menu dropdown */
+  }
+}
