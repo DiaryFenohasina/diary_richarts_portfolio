@@ -1,5 +1,6 @@
 import diary from '../assets/diary.jpeg';
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaDownload, FaFileDownload } from 'react-icons/fa';
+import CV from '../assets/files/CV_Diary_RICHARTS.pdf';
 
 function HomeViews() {
     return (
@@ -7,9 +8,18 @@ function HomeViews() {
 
             {/* Texte */}
             <div className="flex-1 text-center md:text-left space-y-6">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                    Fullstack DEVELOPER
-                </h1>
+                <div className="flex items-center justify-center md:justify-start gap-4">
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+                        Fullstack DEVELOPER
+                    </h1>
+                    <a
+                        href={CV}
+                        download
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                        <FaDownload />
+                    </a>
+                </div>
                 <p className="text-gray-600 text-base md:text-lg ">
                     Autonome, rigoureux et passionné, je mets à profit mes compétences et mon
                     engagement pour contribuer efficacement à la réussite des projets de votre
