@@ -1,5 +1,9 @@
-import Icon from '../assets/Icon.png';
+import { FiSun, FiMoon } from "react-icons/fi";
+import { useTheme } from "../context/ThemeContext.tsx";
+
 function HeaderComponents() {
+    const { theme, toggleTheme } = useTheme();
+
     return (
         <header className="relative flex items-center p-8">
             {/* Menu centré */}
@@ -16,10 +20,20 @@ function HeaderComponents() {
 
             {/* Icône à droite */}
             <div className="absolute right-12 w-14 h-10 border border-gray-300 rounded-full flex justify-center items-center">
-                <button className="w-full h-full  text-white rounded-full hover:bg-gray-300 flex justify-center items-center">
-                    <img src={Icon} alt="Icon" className="w-9 h-9 rounded-full" />
+                <button
+                    onClick={toggleTheme}
+                    className="w-full h-full rounded-full flex justify-center items-center
+                   hover:bg-gray-300 dark:hover:bg-orange-700 transition"
+                    aria-label="Toggle theme"
+                >
+                    {theme === "dark" ? (
+                        <FiSun className="w-6 h-6 text-yellow-400 transition-transform rotate-0" />
+                    ) : (
+                        <FiMoon className="w-6 h-6 text-gray-700 transition-transform rotate-0" />
+                    )}
                 </button>
             </div>
+
         </header>
     );
 }
