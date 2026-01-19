@@ -1,8 +1,47 @@
 import diary from '../assets/diary.jpeg';
 import { FaLinkedin, FaGithub, FaDownload } from 'react-icons/fa';
 import CV from '../assets/files/CV_Diary_RICHARTS.pdf';
+import { useRef } from "react"
+import gsap from "gsap"
 
 function HomeViews() {
+    const frameRef = useRef(null)
+
+    const handleMouseLeave = () => {
+        const element = frameRef.current
+        if (!element) return
+        
+        gsap.to(element, {
+            duration: 0.3,
+            rotateX: 0,
+            rotateY: 0,
+            ease: 'power1.inOut'
+        })
+    }
+
+    const handleMouseMove = (e : any) => {
+        const { clientX, clientY } = e
+        const element = frameRef.current
+
+        if (!element) return
+
+        const rect = element.getBoundingClientRect()
+        const x = clientX - rect.left
+        const y = clientY - rect.top
+
+        const centerX = rect.width / 2
+        const centerY = rect.height / 2
+
+        const rotateX = ((y - centerY) / centerY) * -10
+        const rotateY = ((x - centerX) / centerX) * 10
+
+        gsap.to(element, {
+            direction: 0.3,
+            rotateX, rotateY,
+            transformPerspective: 500,
+            ease: 'power1.inOut'
+        })
+    }
     return (
         <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-12 gap-12">
 
@@ -54,9 +93,14 @@ function HomeViews() {
             <div className="flex-shrink-0 relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                 <div className="absolute inset-0 bg-black rotate-3 md:rotate-6 shadow-2xl"></div>
                 <img
+                    ref={frameRef}
                     src={diary}
                     alt="Diary"
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-md"
+                    onMouseLeave={handleMouseLeave}
+                    onMouseEnter={handleMouseLeave}
+                    onMouseUp={handleMouseLeave}
+                    onMouseMove={handleMouseMove}
                 />
             </div>
         </div>
