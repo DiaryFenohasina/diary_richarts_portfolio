@@ -5,7 +5,7 @@ import { useRef } from "react"
 import gsap from "gsap"
 
 function HomeViews() {
-    const frameRef = useRef(null)
+    const frameRef = useRef<HTMLImageElement>(null)
 
     const handleMouseLeave = () => {
         const element = frameRef.current
