@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SECTIONS from '../data/MockData';
@@ -6,8 +6,8 @@ import SECTIONS from '../data/MockData';
 gsap.registerPlugin(ScrollTrigger);
 
 function SectionHorizontal() {
-  const componentRef = useRef(null);
-  const sliderRef = useRef(null);
+  const componentRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -25,7 +25,7 @@ function SectionHorizontal() {
           trigger: componentRef.current,
           pin: true,
           scrub: 1,
-          end: () => "+=" + (travel + componentRef.current.offsetWidth)
+          end: () => "+=" + (travel + (componentRef.current?.offsetWidth || 0))
         }
       });
 
@@ -137,8 +137,8 @@ function SectionHorizontal() {
   }, []);
 
   // SplitText maison
-  const splitText = (text) => {
-    return text.split("").map((char, i) => (
+  const splitText = (text : any) => {
+    return text.split("").map((char : any, i : any) => (
       <span key={i} className="char inline-block whitespace-pre transform-style-3d">
         {char}
       </span>
