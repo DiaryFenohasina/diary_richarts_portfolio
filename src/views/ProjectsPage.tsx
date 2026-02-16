@@ -117,16 +117,48 @@ function ProjectsPage({ language }: ProjectsPageProps) {
             ? "mt-8 overflow-x-auto overflow-y-hidden px-4 pb-10 sm:px-6"
             : "h-screen overflow-hidden px-4 sm:px-6 flex items-center"
         }
+        style={
+          isMobile
+            ? {
+                marginTop: "2rem",
+                overflowX: "auto",
+                overflowY: "hidden",
+                padding: "0 1rem 2.5rem",
+                WebkitOverflowScrolling: "touch"
+              }
+            : {
+                height: "100vh",
+                overflow: "hidden",
+                padding: "0 1rem",
+                display: "flex",
+                alignItems: "center"
+              }
+        }
       >
         <div
           ref={trackRef}
           className={`project-stepper-track flex w-max items-stretch gap-6 ${isMobile ? "snap-x snap-mandatory pr-6" : ""}`}
+          style={{
+            display: "flex",
+            width: "max-content",
+            alignItems: "stretch",
+            gap: "1.5rem",
+            paddingRight: isMobile ? "1.5rem" : 0
+          }}
         >
-          <div className="shrink-0 w-[6vw] sm:w-[10vw] lg:w-[21vw]" />
+          <div
+            className="shrink-0 w-[6vw] sm:w-[10vw] lg:w-[21vw]"
+            style={{ flex: "0 0 auto", width: isMobile ? "6vw" : "21vw" }}
+          />
           {normalized.map((step) => (
             <article
               key={step.id}
               className={`project-step-card app-card w-[85vw] max-w-[720px] shrink-0 rounded-3xl p-5 sm:w-[70vw] sm:p-6 lg:w-[58vw] ${isMobile ? "snap-center" : ""}`}
+              style={{
+                flex: "0 0 auto",
+                width: isMobile ? "85vw" : "58vw",
+                maxWidth: "720px"
+              }}
             >
               <div className="mb-5 flex items-center gap-3">
                 <span className="project-step-index inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-bold">
@@ -169,7 +201,10 @@ function ProjectsPage({ language }: ProjectsPageProps) {
               </div>
             </article>
           ))}
-          <div className="shrink-0 w-[8vw] sm:w-[12vw] lg:w-[24vw]" />
+          <div
+            className="shrink-0 w-[8vw] sm:w-[12vw] lg:w-[24vw]"
+            style={{ flex: "0 0 auto", width: isMobile ? "8vw" : "24vw" }}
+          />
         </div>
       </div>
     </div>
