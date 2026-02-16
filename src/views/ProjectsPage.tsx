@@ -68,6 +68,7 @@ function ProjectsPage({ language }: ProjectsPageProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
+  const edgeSpacerWidth = isMobile ? "1rem" : "14vw";
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 1024);
@@ -156,8 +157,8 @@ function ProjectsPage({ language }: ProjectsPageProps) {
           }}
         >
           <div
-            className="shrink-0 w-[6vw] sm:w-[10vw] lg:w-[21vw]"
-            style={{ flex: "0 0 auto", width: isMobile ? "6vw" : "21vw" }}
+            className="shrink-0"
+            style={{ flex: "0 0 auto", width: edgeSpacerWidth }}
           />
           {normalized.map((step) => (
             <article
@@ -211,8 +212,8 @@ function ProjectsPage({ language }: ProjectsPageProps) {
             </article>
           ))}
           <div
-            className="shrink-0 w-[8vw] sm:w-[12vw] lg:w-[24vw]"
-            style={{ flex: "0 0 auto", width: isMobile ? "8vw" : "24vw" }}
+            className="shrink-0"
+            style={{ flex: "0 0 auto", width: edgeSpacerWidth }}
           />
         </div>
       </div>

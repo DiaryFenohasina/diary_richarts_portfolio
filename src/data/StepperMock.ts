@@ -4,6 +4,8 @@ import phoneDashboardImage from "../assets/image/phone/phone-dashboard.png";
 import cpmImage1 from "../assets/image/cpm/cpm-1.png";
 import cpmImage2 from "../assets/image/cpm/cpm-2.png";
 import cpmImage3 from "../assets/image/cpm/cpm-3.png";
+import reservationImage1 from "../assets/image/reservation/reservation-1.png";
+import reservationImage2 from "../assets/image/reservation/reservation-2.png";
 
 const steps = [
     {
@@ -69,7 +71,15 @@ const steps = [
         link: "git@github.com:DiaryFenohasina/Kidoo-Kids.git",
         images: ["/img/background/ia.jpg", "/img/background/ia3.jpg", "/img/background/woman3.jpeg"],
         stacks: ["Javascript", "Node js","Express js", "Vue js", "PostgreSQL"]
-    }
+    },
+    {
+        label: 'Menu Radar',
+        description: `Plateforme de comparaison et de recherche de restaurants.`,
+        descriptionEn: `Platform for comparing and searching restaurants.`,
+        link: "git@github.com:DiaryFenohasina/Menu-Radar.git",
+        images: [reservationImage1, reservationImage2],
+        stacks: ["Javascript", "Node js","Express js", "React js", "PostgreSQL"]
+    }    
 ];
 
 export default steps;
