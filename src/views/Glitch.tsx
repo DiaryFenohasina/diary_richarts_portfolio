@@ -1,11 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
-const TextGlitch = ({ words , duration = 1.5 }) => {
-  const textRef = useRef(null);
-  const sectionRef = useRef(null);
+type TextGlitchProps = {
+  words?: string[];
+  duration?: number;
+};
+
+const DEFAULT_WORDS = ["KILAMENTY", "EFA IZY ...", "MILAY"];
+
+const TextGlitch = ({ words, duration = 1.5 }: TextGlitchProps) => {
+  const textRef = useRef<HTMLParagraphElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const wordsList = words || ["KILAMENTY", "EFA IZY ...", "MILAY"];
+  const wordsList = words && words.length > 0 ? words : DEFAULT_WORDS;
   
   // Intersection Observer pour détecter le scroll
   useEffect(() => {
@@ -14,7 +20,6 @@ const TextGlitch = ({ words , duration = 1.5 }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            setCurrentWordIndex(0);
           } else {
             setIsVisible(false);
           }
@@ -44,7 +49,7 @@ const TextGlitch = ({ words , duration = 1.5 }) => {
     const textElement = textRef.current;
     if (!textElement) return;
 
-    let timeoutIds = [];
+    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
     let currentIndex = 0;
 
     const animateWord = () => {
@@ -108,7 +113,7 @@ const TextGlitch = ({ words , duration = 1.5 }) => {
     animateWord(); // Démarre la boucle
 
     return () => {
-      timeoutIds.forEach(id => clearTimeout(id));
+      timeoutIds.forEach((id) => clearTimeout(id));
     };
   }, [isVisible, wordsList, duration]);
 
@@ -124,7 +129,7 @@ const TextGlitch = ({ words , duration = 1.5 }) => {
       >
       </p>
       
-      <style jsx>{`
+      <style>{`
         .text-glitch-container {
           display: flex;
           justify-content: center;

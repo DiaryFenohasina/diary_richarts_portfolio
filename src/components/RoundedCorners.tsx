@@ -1,5 +1,3 @@
-import React from 'react'
-
 const RoundedCorners = () => {
   return (
     //rounded the corner of the image using svg filter

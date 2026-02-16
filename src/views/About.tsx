@@ -44,7 +44,7 @@ function About() {
       });
 
       // Animations internes
-      SECTIONS.forEach((_, index) => {
+      for (let index = 0; index < SECTIONS.length; index += 1) {
         
         // ✅ Animation du texte - déclenche à 50% (center)
         gsap.fromTo(`.title-${index} .char`, 
@@ -141,7 +141,7 @@ function About() {
             }
           }
         );
-      });
+      }
 
       ScrollTrigger.refresh();
 
@@ -151,8 +151,8 @@ function About() {
   }, [isMobile]);
 
   // SplitText maison
-  const splitText = (text : any) => {
-    return text.split("").map((char : any, i : any) => (
+  const splitText = (text: string) => {
+    return text.split("").map((char: string, i: number) => (
       <span key={i} className="char inline-block whitespace-pre transform-style-3d">
         {char}
       </span>
@@ -163,7 +163,7 @@ function About() {
     return (
       <div className="w-full bg-black px-4 py-10 sm:px-6 sm:py-12">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
-          {SECTIONS.map((section) => (
+          {SECTIONS.map((section: (typeof SECTIONS)[number]) => (
             <article
               key={section.id}
               className="overflow-hidden rounded-3xl border border-white/10 bg-white/5"
@@ -197,7 +197,7 @@ function About() {
     <div ref={componentRef} className="overscroll-none h-screen w-full overflow-hidden bg-black">
       <div ref={sliderRef} className="flex w-max">
         
-        {SECTIONS.map((section, index) => (
+        {SECTIONS.map((section: (typeof SECTIONS)[number], index: number) => (
           <div 
             key={section.id} 
             className={`section-${index} relative h-screen w-screen flex items-center justify-center ${section.bg} overflow-hidden `}

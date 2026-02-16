@@ -1,9 +1,30 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
+
+type GsapLike = {
+    fromTo: (
+        target: Element,
+        fromVars: Record<string, unknown>,
+        toVars: Record<string, unknown>
+    ) => void;
+};
+
+type Project = {
+    id: number;
+    title: string;
+    src: string;
+    category: string;
+};
+
+declare global {
+    interface Window {
+        gsap?: GsapLike;
+    }
+}
 
 export default function ParallaxCarousel() {
-    const leftColRef = useRef(null);
-    const rightColRef = useRef(null);
-    const thirdColRef = useRef(null);
+    const leftColRef = useRef<HTMLDivElement | null>(null);
+    const rightColRef = useRef<HTMLDivElement | null>(null);
+    const thirdColRef = useRef<HTMLDivElement | null>(null);
 
     useLayoutEffect(() => {
         const loadGSAP = () => {
@@ -20,6 +41,7 @@ export default function ParallaxCarousel() {
 
         const initAnimations = () => {
             const gsap = window.gsap;
+            if (!gsap) return;
             if (!leftColRef.current || !rightColRef.current || !thirdColRef.current) return;
 
             // Colonne gauche monte (de 0 à -50%, puis reset à 0)
@@ -58,23 +80,23 @@ export default function ParallaxCarousel() {
         loadGSAP();
     }, []);
 
-    const projects1 = [
+    const projects1: Project[] = [
         { id: 1, title: 'Surveillance Totale', src: '/img/risk/ia-1.jpg', category: 'Direction Artistique' },
         { id: 2, title: 'Biais Algorithmique', src: '/img/risk/risk2.jpg', category: 'Web Design' },
         { id: 3, title: 'Erreur Fatale', src: '/img/risk/risk3.jpg', category: 'Branding' }
     ];
-    const projects2 = [
+    const projects2: Project[] = [
         { id: 1, title: 'Bouclier IA', src: '/img/risk/protect.jpg', category: 'Développement' },
         { id: 2, title: 'Contrôle Automatisé', src: '/img/risk/protect2.jpg', category: '3D Motion' },
         { id: 3, title: 'Sécurité Avancée', src: '/img/risk/protect3.jpg', category: 'Photography' },
     ];
-    const projects3 = [
+    const projects3: Project[] = [
         { id: 1, title: 'IA Responsable', src: '/img/risk/ia-3.jpg', category: 'Développement' },
         { id: 2, title: 'Surveillance Éthique', src: '/img/risk/ia-5.jpg', category: '3D Motion' },
         { id: 3, title: 'Prévention des Risques', src: '/img/risk/ia-2.jpg', category: 'Photography' },
     ];
 
-    const ProjectCard = ({ project }) => (
+    const ProjectCard = ({ project }: { project: Project }) => (
         <div className="project-card relative w-full will-change-transform">
             <div className="image-wrapper w-full h-[65vh] overflow-hidden relative rounded-sm">
                 <img src={project.src} alt={project.title} className="project-image w-full h-full object-cover transition duration-500 ease-in-out hover:scale-[1.05]" />
