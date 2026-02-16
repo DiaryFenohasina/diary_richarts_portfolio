@@ -5,7 +5,7 @@ import SECTIONS from '../data/MockData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SectionHorizontal() {
+function About() {
   const componentRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
@@ -262,4 +262,4 @@ function SectionHorizontal() {
   )
 }
 
-export default SectionHorizontal;
+export default About;
