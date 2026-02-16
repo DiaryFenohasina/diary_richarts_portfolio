@@ -1,4 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap");
+
+:root {
+  --app-bg: #f8fafc;
+  --app-bg-elevated: #ffffff;
+  --app-border: #d1d5db;
+  --app-text: #111827;
+  --app-muted: #4b5563;
+  --app-muted-strong: #374151;
+  --project-bg: #f3f4f6;
+  --linkedin: #2563eb;
+  --linkedin-hover: #1d4ed8;
+  --github: #1f2937;
+  --github-hover: #111827;
+}
+
+[data-theme="dark"] {
+  --app-bg: #030712;
+  --app-bg-elevated: #111827;
+  --app-border: #374151;
+  --app-text: #f3f4f6;
+  --app-muted: #9ca3af;
+  --app-muted-strong: #d1d5db;
+  --project-bg: #111827;
+  --linkedin: #60a5fa;
+  --linkedin-hover: #93c5fd;
+  --github: #e5e7eb;
+  --github-hover: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 112px;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-rendering: optimizeLegibility;
+  background: var(--app-bg);
+  color: var(--app-text);
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sora", "Manrope", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+
+p {
+  color: var(--app-muted);
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+}
+
+.glitch-title {
+  position: relative;
+  display: inline-block;
+  font-family: "Sora", "Manrope", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  animation: glitch-skew 2.8s infinite linear alternate-reverse;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glitch-title::before {
+  left: 2px;
+  text-shadow: -2px 0 #00d4ff;
+  clip-path: inset(0 0 58% 0);
+  animation: glitch-slice-1 1.8s infinite steps(2, end) alternate-reverse;
+}
+
+.glitch-title::after {
+  left: -2px;
+  text-shadow: 2px 0 #ff2244;
+  clip-path: inset(62% 0 0 0);
+  animation: glitch-slice-2 2.2s infinite steps(2, end) alternate-reverse;
+}
+
+@keyframes glitch-slice-1 {
+  0% { transform: translate(0); clip-path: inset(0 0 64% 0); }
+  25% { transform: translate(-2px, -1px); clip-path: inset(0 0 42% 0); }
+  50% { transform: translate(2px, 1px); clip-path: inset(0 0 74% 0); }
+  75% { transform: translate(-1px, 1px); clip-path: inset(0 0 50% 0); }
+  100% { transform: translate(1px, -1px); clip-path: inset(0 0 62% 0); }
+}
+
+@keyframes glitch-slice-2 {
+  0% { transform: translate(0); clip-path: inset(60% 0 0 0); }
+  25% { transform: translate(2px, 1px); clip-path: inset(38% 0 0 0); }
+  50% { transform: translate(-2px, -1px); clip-path: inset(70% 0 0 0); }
+  75% { transform: translate(1px, -1px); clip-path: inset(44% 0 0 0); }
+  100% { transform: translate(-1px, 1px); clip-path: inset(58% 0 0 0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skewX(0deg); }
+  20% { transform: skewX(-2deg); }
+  40% { transform: skewX(2deg); }
+  60% { transform: skewX(-1deg); }
+  80% { transform: skewX(1deg); }
+  100% { transform: skewX(0deg); }
+}
+
+.header-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.header-link::before,
+.header-link::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header-link:hover,
+.header-link--active {
+  color: #111827;
+}
+
+.header-link:hover {
+  text-decoration: none;
+  text-shadow: -1px 0 rgba(0, 212, 255, 0.55), 1px 0 rgba(255, 34, 68, 0.55);
+}
+
+.header-link--active {
+  text-decoration: none;
+}
+
+.header-link:hover::before,
+.header-link:hover::after {
+  opacity: 0.9;
+}
+
+.header-link:hover::before {
+  left: 2px;
+  color: rgba(0, 212, 255, 0.9);
+  animation: glitch-link-1 360ms steps(2, end) infinite;
+}
+
+.header-link:hover::after {
+  left: -2px;
+  color: rgba(255, 34, 68, 0.9);
+  animation: glitch-link-2 360ms steps(2, end) infinite;
+}
+
+@keyframes glitch-link-1 {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-1px, -1px); }
+  66% { transform: translate(1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitch-link-2 {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(1px, 1px); }
+  66% { transform: translate(-1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+.app-header {
+  background: var(--app-bg-elevated);
+  transition: background-color 220ms ease;
+}
+
+.menu-shell {
+  border: 1px solid var(--app-border);
+  background: var(--app-bg-elevated);
+  overflow: hidden;
+}
+
+.header-link {
+  color: var(--app-muted);
+}
+
+.header-link:hover,
+.header-link--active {
+  color: var(--app-text);
+}
+
+.header-actions {
+  color: var(--app-text);
+}
+
+.header-icon-btn {
+  height: 2.25rem;
+  min-width: 2.25rem;
+  padding: 0 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid var(--app-border);
+  background: var(--app-bg-elevated);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: transform 150ms ease, border-color 180ms ease, background-color 220ms ease;
+}
+
+.header-icon-btn:hover {
+  transform: translateY(-1px);
+}
+
+.home-title {
+  color: var(--app-text);
+}
+
+.home-paragraph {
+  color: var(--app-muted);
+}
+
+.home-linkedin {
+  color: var(--linkedin);
+}
+
+.home-linkedin:hover {
+  color: var(--linkedin-hover);
+}
+
+.home-github {
+  color: var(--github);
+}
+
+.home-github:hover {
+  color: var(--github-hover);
+}
+
+.section-project {
+  background: var(--project-bg);
+}
+
+.app-contact-section {
+  color: var(--app-text);
+}
+
+.app-card {
+  border: 1px solid var(--app-border);
+  background: var(--app-bg-elevated);
+  color: var(--app-text);
+}
+
+.project-stepper-wrap {
+  position: relative;
+}
+
+.project-stepper-head {
+  position: relative;
+  z-index: 2;
+}
+
+.project-main-title {
+  color: #1f2937;
+  background: linear-gradient(90deg, #00d4ff 0%, #6aa6ff 40%, #ff2244 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.01em;
+}
+
+.project-stepper-track {
+  padding-bottom: 0.25rem;
+}
+
+.project-step-card {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.project-step-index {
+  background: linear-gradient(135deg, #00d4ff 0%, #6aa6ff 100%);
+  color: #0b1020;
+}
+
+.project-step-line {
+  background: linear-gradient(90deg, rgba(0, 212, 255, 0.5), rgba(255, 34, 68, 0.5));
+}
+
+.project-step-link {
+  border: 1px solid var(--app-border);
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--app-text);
+}
+
+.project-step-link:hover {
+  background: rgba(0, 212, 255, 0.2);
+}
+
+.skill-card {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: skill-rise 520ms ease-out forwards;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  transition: transform 180ms ease;
+}
+
+@keyframes skill-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+
+  .glitch-title {
+    letter-spacing: 0.02em;
+  }
+
+  .header-icon-btn {
+    height: 2rem;
+    min-width: 2rem;
+    padding: 0 0.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .project-stepper-head {
+    position: sticky;
+    top: 96px;
+    z-index: 15;
+  }
 }

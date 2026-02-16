@@ -1,36 +1,50 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SECTIONS from '../data/MockData';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SectionHorizontal() {
+function About() {
   const componentRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1024);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useLayoutEffect(() => {
+    if (isMobile) return;
+
     let ctx = gsap.context(() => {
       
       if (!componentRef.current || !sliderRef.current) return;
 
-      // Distance réelle à parcourir
-      const travel = sliderRef.current.scrollWidth - componentRef.current.offsetWidth;
+      const getTravel = () => {
+        if (!componentRef.current || !sliderRef.current) return 0;
+        return Math.max(0, sliderRef.current.scrollWidth - componentRef.current.offsetWidth);
+      };
+
+      if (getTravel() === 0) return;
 
       // Scroll horizontal propre
-      let scrollTween = gsap.to(sliderRef.current, {
-        x: -travel,
+      const scrollTween = gsap.to(sliderRef.current, {
+        x: () => -getTravel(),
         ease: "none",
         scrollTrigger: {
           trigger: componentRef.current,
           pin: true,
           scrub: 1,
-          end: () => "+=" + (travel + (componentRef.current?.offsetWidth || 0))
+          invalidateOnRefresh: true,
+          end: () => "+=" + (getTravel() + (componentRef.current?.offsetWidth || 0))
         }
       });
 
       // Animations internes
-      SECTIONS.forEach((section, index) => {
+      SECTIONS.forEach((_, index) => {
         
         // ✅ Animation du texte - déclenche à 50% (center)
         gsap.fromTo(`.title-${index} .char`, 
@@ -134,7 +148,7 @@ function SectionHorizontal() {
     }, componentRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   // SplitText maison
   const splitText = (text : any) => {
@@ -145,8 +159,42 @@ function SectionHorizontal() {
     ));
   };
 
+  if (isMobile) {
+    return (
+      <div className="w-full bg-black px-4 py-10 sm:px-6 sm:py-12">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+          {SECTIONS.map((section) => (
+            <article
+              key={section.id}
+              className="overflow-hidden rounded-3xl border border-white/10 bg-white/5"
+            >
+              <div className="h-56 w-full sm:h-72">
+                <img
+                  src={section.image}
+                  alt={section.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="space-y-4 p-5 sm:p-6">
+                <div className={`text-xs font-bold uppercase tracking-[0.2em] sm:text-sm ${section.accent}`}>
+                  {section.subtitle}
+                </div>
+                <h2 className="text-2xl font-black text-white sm:text-3xl">
+                  {section.title}
+                </h2>
+                <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
+                  {section.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div ref={componentRef} className="overscroll-none h-screen w-full overflow-hidden bg-black ">
+    <div ref={componentRef} className="overscroll-none h-screen w-full overflow-hidden bg-black">
       <div ref={sliderRef} className="flex w-max">
         
         {SECTIONS.map((section, index) => (
@@ -164,20 +212,20 @@ function SectionHorizontal() {
                />
             </div>
 
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl px-8 items-center">
+            <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 items-center gap-8 px-4 sm:px-6 md:grid-cols-2 md:gap-12 md:px-8">
               
               <div className="space-y-6">
                 <div className={`subtitle-${index} text-sm font-bold tracking-[0.3em] uppercase ${section.accent} mb-4`}>
                   {section.subtitle}
                 </div>
 
-                <h2 className="text-7xl font-black text-white leading-[0.9] overflow-hidden">
+                <h2 className="overflow-hidden text-4xl font-black leading-[0.9] text-white sm:text-5xl md:text-6xl lg:text-7xl">
                   <div className={`title-${index} flex flex-wrap perspective-text`}>
                     {splitText(section.title)}
                   </div>
                 </h2>
 
-                <p className={`desc-${index} text-gray-300 text-xl max-w-md mt-8 border-l-2 border-white/20 pl-6 `}>
+                <p className={`desc-${index} mt-6 max-w-md border-l-2 border-white/20 pl-4 text-base text-gray-300 sm:mt-8 sm:pl-6 sm:text-lg md:text-xl`}>
                   {section.description}
                 </p>
 
@@ -185,7 +233,7 @@ function SectionHorizontal() {
 
               <div className="hidden md:flex justify-center items-center">
                 {/* Cadre de l'image plus "Tech" (carré arrondi ou cercle selon préférence, ici cercle gardé mais avec bordure brillante) */}
-                <div className={`w-[400px] h-[500px] rounded-[2rem] border border-white/10 backdrop-blur-sm relative overflow-hidden img-wrapper-${index} shadow-2xl shadow-black/50`}>
+                <div className={`img-wrapper-${index} relative h-[420px] w-[320px] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl shadow-black/50 backdrop-blur-sm lg:h-[500px] lg:w-[400px]`}>
                    <img 
                      src={section.image} 
                      alt="" 
@@ -214,4 +262,4 @@ function SectionHorizontal() {
   )
 }
 
-export default SectionHorizontal;
+export default About;
