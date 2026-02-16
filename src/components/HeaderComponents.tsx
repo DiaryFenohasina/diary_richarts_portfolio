@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaMoon, FaSun, FaLanguage } from "react-icons/fa";
-const sections = ["home", "about", "contact","project"];
+const sections = ["home", "about", "skills", "project", "contact"];
 
 type HeaderProps = {
     theme?: "light" | "dark";
@@ -19,23 +19,36 @@ function HeaderComponents({
 
     useEffect(() => {
         const handleScroll = () => {
-            const scrollPos = window.scrollY + 120;
+            const marker = window.innerHeight * 0.35;
+            let currentId = "";
+            let closestId = "";
+            let closestDistance = Number.POSITIVE_INFINITY;
 
             sections.forEach((id) => {
                 const section = document.getElementById(id);
-                if (section) {
-                    const top = section.offsetTop;
-                    const bottom = top + section.offsetHeight;
+                if (!section) return;
 
-                    if (scrollPos >= top && scrollPos < bottom) {
-                        setActiveSection(id);
-                    }
+                const rect = section.getBoundingClientRect();
+                const containsMarker = rect.top <= marker && rect.bottom >= marker;
+                const distance = Math.abs(rect.top - marker);
+
+                if (containsMarker) currentId = id;
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestId = id;
                 }
             });
+
+            setActiveSection(currentId || closestId || sections[0]);
         };
 
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleScroll);
+        handleScroll();
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
+        };
     }, []);
 
     const linkClass = (id: string) =>
@@ -45,8 +58,8 @@ function HeaderComponents({
         }`;
 
     const labels = language === "fr"
-        ? { home: "Accueil", about: "A propos", contact: "Contact", project: "Projets" }
-        : { home: "Home", about: "About", contact: "Contact", project: "Projects" };
+        ? { home: "Accueil", about: "A propos", skills: "Skills", project: "Projets", contact: "Contact" }
+        : { home: "Home", about: "About", skills: "Skills", project: "Projects", contact: "Contact" };
 
     return (
         <header className="app-header fixed top-0 left-0 w-full z-50 px-3 py-3 sm:px-4 md:p-8">
@@ -65,13 +78,18 @@ function HeaderComponents({
                             </a>
                         </li>
                         <li>
-                            <a href="#contact" className={linkClass("contact")} data-text={labels.contact}>
-                                {labels.contact}
+                            <a href="#skills" className={linkClass("skills")} data-text={labels.skills}>
+                                {labels.skills}
                             </a>
                         </li>
                         <li>
                             <a href="#project" className={linkClass("project")} data-text={labels.project}>
                                 {labels.project}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" className={linkClass("contact")} data-text={labels.contact}>
+                                {labels.contact}
                             </a>
                         </li>
                         </ul>
