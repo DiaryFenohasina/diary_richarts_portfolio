@@ -18,7 +18,8 @@ import {
   SiDocker,
   SiGit,
   SiApachekafka,
-  SiRedis
+  SiRedis,
+  SiMeilisearch
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
 
@@ -58,7 +59,8 @@ function SkillsPage({ language }: SkillsPageProps) {
     Docker: SiDocker,
     Git: SiGit,
     Kafka: SiApachekafka,
-    Redis: SiRedis
+    Redis: SiRedis,
+    Meilisearch: SiMeilisearch
   };
 
   const stackColorMap: Record<string, string> = {
@@ -79,7 +81,8 @@ function SkillsPage({ language }: SkillsPageProps) {
     Docker: "#2496ed",
     Git: "#f05032",
     Kafka: "#231f20",
-    Redis: "#dc382d"
+    Redis: "#dc382d",
+    Meilisearch: "#ff5c6c"
   };
 
   return (
