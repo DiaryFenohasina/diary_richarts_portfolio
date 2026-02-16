@@ -35,7 +35,7 @@ function ContactPage({ language }: ContactPageProps) {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-16 text-center sm:px-6 md:py-20">
-      <h2 className="text-3xl font-bold sm:text-4xl">
+      <h2 className="glitch-title text-3xl font-bold sm:text-4xl" data-text={language === "fr" ? "Contact" : "Contact"}>
         {language === "fr" ? "Contact" : "Contact"}
       </h2>
       <p className="mt-4 text-base sm:text-lg">
