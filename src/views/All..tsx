@@ -20,7 +20,7 @@ export default function All({ language }: AllProps) {
             <section id="skills" className="min-h-[92vh] w-full flex items-center scroll-mt-28 md:scroll-mt-32">
                 <SkillsPage language={language} />
             </section>
-            <section id="project" className="min-h-screen w-full section-project scroll-mt-28 md:scroll-mt-32">
+            <section id="project" className="min-h-screen w-full section-project scroll-mt-28 px-4 sm:px-6 md:px-10 md:scroll-mt-32">
                 <ProjectsPage language={language} />
             </section>
             <section id="contact" className="min-h-[88vh] w-full app-contact-section flex items-center scroll-mt-28 md:scroll-mt-32">
