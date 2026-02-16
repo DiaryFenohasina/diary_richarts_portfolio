@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
+import { FaMoon, FaSun, FaLanguage } from "react-icons/fa";
 const sections = ["home", "about", "contact","project"];
 
-function HeaderComponents() {
+type HeaderProps = {
+    theme?: "light" | "dark";
+    language?: "fr" | "en";
+    onToggleTheme?: () => void;
+    onToggleLanguage?: () => void;
+};
+
+function HeaderComponents({
+    theme = "light",
+    language = "fr",
+    onToggleTheme = () => {},
+    onToggleLanguage = () => {}
+}: HeaderProps) {
     const [activeSection, setActiveSection] = useState("");
 
-    // Scroll spy
     useEffect(() => {
         const handleScroll = () => {
             const scrollPos = window.scrollY + 120;
@@ -26,41 +38,67 @@ function HeaderComponents() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const linkClass = (isActive: boolean, id?: string) =>
-        `font-bold transition ${isActive || activeSection === id
-            ? "text-black underline"
-            : "text-gray-600 hover:text-gray-800"
+    const linkClass = (id: string) =>
+        `header-link font-bold transition ${activeSection === id
+            ? "header-link--active"
+            : ""
         }`;
 
-    return (
-        <header className="fixed top-0 left-0 w-full z-50 bg-white flex items-center p-8">
+    const labels = language === "fr"
+        ? { home: "Accueil", about: "A propos", contact: "Contact", project: "Projets" }
+        : { home: "Home", about: "About", contact: "Contact", project: "Projects" };
 
-            {/* Menu centré */}
-            <div className="mx-auto border border-gray-300 rounded-2xl shadow-md px-6 py-2">
-                <nav>
-                    <ul className="flex space-x-10">
+    return (
+        <header className="app-header fixed top-0 left-0 w-full z-50 px-3 py-3 sm:px-4 md:p-8">
+            <div className="relative mx-auto w-full max-w-[1280px]">
+                <div className="menu-shell mx-auto w-fit max-w-full rounded-2xl shadow-md px-4 py-2 md:px-6">
+                    <nav className="overflow-x-auto">
+                        <ul className="flex w-max items-center gap-5 whitespace-nowrap sm:gap-7 md:gap-10">
                         <li>
-                            <a href="#home" className={linkClass(false, "home")}>
-                                Home
+                            <a href="#home" className={linkClass("home")} data-text={labels.home}>
+                                {labels.home}
                             </a>
                         </li>
                         <li>
-                            <a href="#about" className={linkClass(false, "about")}>
-                                About
+                            <a href="#about" className={linkClass("about")} data-text={labels.about}>
+                                {labels.about}
                             </a>
                         </li>
                         <li>
-                            <a href="#contact" className={linkClass(false, "contact")}>
-                                Contact
-                            </a>
-                        </li>                        
-                        <li>
-                            <a href="#project" className={linkClass(false, "project")}>
-                                Project
+                            <a href="#contact" className={linkClass("contact")} data-text={labels.contact}>
+                                {labels.contact}
                             </a>
                         </li>
-                    </ul>
-                </nav>
+                        <li>
+                            <a href="#project" className={linkClass("project")} data-text={labels.project}>
+                                {labels.project}
+                            </a>
+                        </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div className="header-actions mt-3 flex items-center justify-center gap-2 sm:absolute sm:right-2 sm:top-1/2 sm:mt-0 sm:-translate-y-1/2 sm:gap-3 md:right-8">
+                <button
+                    type="button"
+                    className="header-icon-btn"
+                    onClick={onToggleLanguage}
+                    aria-label={language === "fr" ? "Passer en anglais" : "Switch to French"}
+                    title={language === "fr" ? "Langue: FR" : "Language: EN"}
+                >
+                    <FaLanguage />
+                    <span className="text-[10px] font-bold sm:text-xs">{language.toUpperCase()}</span>
+                </button>
+                <button
+                    type="button"
+                    className="header-icon-btn"
+                    onClick={onToggleTheme}
+                    aria-label={theme === "light" ? "Activer le mode sombre" : "Activer le mode clair"}
+                    title={theme === "light" ? "Dark mode" : "Light mode"}
+                >
+                    {theme === "light" ? <FaMoon /> : <FaSun />}
+                </button>
+                </div>
             </div>
         </header>
     );
