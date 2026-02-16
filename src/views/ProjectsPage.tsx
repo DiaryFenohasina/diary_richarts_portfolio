@@ -196,7 +196,7 @@ function ProjectsPage({ language }: ProjectsPageProps) {
                       ))}
                     </div>
                   </div>
-                  {step.link && (
+                  {/* {step.link && (
                     <a
                       href={step.link}
                       target="_blank"
@@ -205,7 +205,7 @@ function ProjectsPage({ language }: ProjectsPageProps) {
                     >
                       {language === "fr" ? "Voir le repo" : "View repo"}
                     </a>
-                  )}
+                  )} */}
                 </div>
                 <ProjectCarousel images={step.images} title={step.label} />
               </div>
