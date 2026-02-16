@@ -1,13 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap");
 
 :root {
-  --app-bg: #f8fafc;
+  --app-bg: #f4f8ff;
   --app-bg-elevated: #ffffff;
-  --app-border: #d1d5db;
+  --app-border: #c9d7ee;
   --app-text: #111827;
   --app-muted: #4b5563;
   --app-muted-strong: #374151;
-  --project-bg: #f3f4f6;
+  --project-bg: #eef4ff;
+  --accent-cyan: #00d4ff;
+  --accent-cyan-rgb: 0, 212, 255;
+  --accent-blue: #6aa6ff;
+  --accent-blue-rgb: 106, 166, 255;
+  --accent-red: #ff2244;
+  --accent-red-rgb: 255, 34, 68;
   --linkedin: #2563eb;
   --linkedin-hover: #1d4ed8;
   --github: #1f2937;
@@ -21,7 +27,13 @@
   --app-text: #f3f4f6;
   --app-muted: #9ca3af;
   --app-muted-strong: #d1d5db;
-  --project-bg: #111827;
+  --project-bg: #0f172a;
+  --accent-cyan: #22d3ee;
+  --accent-cyan-rgb: 34, 211, 238;
+  --accent-blue: #60a5fa;
+  --accent-blue-rgb: 96, 165, 250;
+  --accent-red: #fb7185;
+  --accent-red-rgb: 251, 113, 133;
   --linkedin: #60a5fa;
   --linkedin-hover: #93c5fd;
   --github: #e5e7eb;
@@ -49,7 +61,10 @@ body {
   font-weight: 500;
   letter-spacing: 0.01em;
   text-rendering: optimizeLegibility;
-  background: var(--app-bg);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(var(--accent-cyan-rgb), 0.14), transparent 36%),
+    radial-gradient(circle at 92% 12%, rgba(var(--accent-blue-rgb), 0.12), transparent 38%),
+    var(--app-bg);
   color: var(--app-text);
   transition: background-color 220ms ease, color 220ms ease;
 }
@@ -93,14 +108,14 @@ p {
 
 .glitch-title::before {
   left: 2px;
-  text-shadow: -2px 0 #00d4ff;
+  text-shadow: -2px 0 var(--accent-cyan);
   clip-path: inset(0 0 58% 0);
   animation: glitch-slice-1 1.8s infinite steps(2, end) alternate-reverse;
 }
 
 .glitch-title::after {
   left: -2px;
-  text-shadow: 2px 0 #ff2244;
+  text-shadow: 2px 0 var(--accent-red);
   clip-path: inset(62% 0 0 0);
   animation: glitch-slice-2 2.2s infinite steps(2, end) alternate-reverse;
 }
@@ -152,7 +167,7 @@ p {
 
 .header-link:hover {
   text-decoration: none;
-  text-shadow: -1px 0 rgba(0, 212, 255, 0.55), 1px 0 rgba(255, 34, 68, 0.55);
+  text-shadow: -1px 0 rgba(var(--accent-cyan-rgb), 0.55), 1px 0 rgba(var(--accent-red-rgb), 0.55);
 }
 
 .header-link--active {
@@ -166,13 +181,13 @@ p {
 
 .header-link:hover::before {
   left: 2px;
-  color: rgba(0, 212, 255, 0.9);
+  color: rgba(var(--accent-cyan-rgb), 0.9);
   animation: glitch-link-1 360ms steps(2, end) infinite;
 }
 
 .header-link:hover::after {
   left: -2px;
-  color: rgba(255, 34, 68, 0.9);
+  color: rgba(var(--accent-red-rgb), 0.9);
   animation: glitch-link-2 360ms steps(2, end) infinite;
 }
 
@@ -191,13 +206,13 @@ p {
 }
 
 .app-header {
-  background: var(--app-bg-elevated);
+  background: color-mix(in oklab, var(--app-bg-elevated) 88%, #e0ebff 12%);
   transition: background-color 220ms ease;
 }
 
 .menu-shell {
   border: 1px solid var(--app-border);
-  background: var(--app-bg-elevated);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(237, 245, 255, 0.95));
   overflow: hidden;
 }
 
@@ -257,7 +272,10 @@ p {
 }
 
 .section-project {
-  background: var(--project-bg);
+  background:
+    radial-gradient(circle at 20% 14%, rgba(var(--accent-cyan-rgb), 0.1), transparent 44%),
+    radial-gradient(circle at 90% 84%, rgba(var(--accent-red-rgb), 0.08), transparent 42%),
+    var(--project-bg);
 }
 
 .app-contact-section {
@@ -266,7 +284,7 @@ p {
 
 .app-card {
   border: 1px solid var(--app-border);
-  background: var(--app-bg-elevated);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97), rgba(239, 246, 255, 0.9));
   color: var(--app-text);
 }
 
@@ -281,7 +299,7 @@ p {
 
 .project-main-title {
   color: #1f2937;
-  background: linear-gradient(90deg, #00d4ff 0%, #6aa6ff 40%, #ff2244 100%);
+  background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-blue) 40%, var(--accent-red) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -298,22 +316,56 @@ p {
 }
 
 .project-step-index {
-  background: linear-gradient(135deg, #00d4ff 0%, #6aa6ff 100%);
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
   color: #0b1020;
 }
 
 .project-step-line {
-  background: linear-gradient(90deg, rgba(0, 212, 255, 0.5), rgba(255, 34, 68, 0.5));
+  background: linear-gradient(90deg, rgba(var(--accent-cyan-rgb), 0.5), rgba(var(--accent-red-rgb), 0.5));
 }
 
 .project-step-link {
   border: 1px solid var(--app-border);
-  background: rgba(0, 212, 255, 0.12);
+  background: linear-gradient(90deg, rgba(var(--accent-cyan-rgb), 0.16), rgba(var(--accent-blue-rgb), 0.16));
   color: var(--app-text);
 }
 
 .project-step-link:hover {
-  background: rgba(0, 212, 255, 0.2);
+  background: linear-gradient(90deg, rgba(var(--accent-cyan-rgb), 0.24), rgba(var(--accent-red-rgb), 0.16));
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(var(--accent-cyan-rgb), 0.14), transparent 36%),
+    radial-gradient(circle at 88% 14%, rgba(var(--accent-blue-rgb), 0.12), transparent 36%),
+    var(--app-bg);
+}
+
+html[data-theme="dark"] .app-header {
+  background: color-mix(in oklab, var(--app-bg-elevated) 88%, #172554 12%);
+}
+
+html[data-theme="dark"] .menu-shell {
+  background: linear-gradient(120deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.95));
+}
+
+html[data-theme="dark"] .section-project {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(var(--accent-cyan-rgb), 0.12), transparent 42%),
+    radial-gradient(circle at 92% 86%, rgba(var(--accent-red-rgb), 0.1), transparent 44%),
+    var(--project-bg);
+}
+
+html[data-theme="dark"] .app-card {
+  background: linear-gradient(165deg, rgba(17, 24, 39, 0.96), rgba(15, 23, 42, 0.92));
+}
+
+html[data-theme="dark"] .project-step-link {
+  background: linear-gradient(90deg, rgba(var(--accent-cyan-rgb), 0.2), rgba(var(--accent-blue-rgb), 0.2));
+}
+
+html[data-theme="dark"] .project-step-link:hover {
+  background: linear-gradient(90deg, rgba(var(--accent-cyan-rgb), 0.3), rgba(var(--accent-red-rgb), 0.24));
 }
 
 .skill-card {
