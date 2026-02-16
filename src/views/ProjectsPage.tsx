@@ -21,18 +21,22 @@ type StepProject = {
 function ProjectCarousel({ images, title }: { images: string[]; title: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const imageCount = images.length;
+  const hasMultipleImages = imageCount > 1;
+  const imageHeightClass =
+    imageCount >= 3 ? "h-56 sm:h-64" : imageCount === 2 ? "h-64 sm:h-72" : "h-72 sm:h-80";
 
   useEffect(() => {
-    if (paused || images.length < 2) return;
+    if (paused || !hasMultipleImages) return;
     const timer = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % images.length);
     }, 2200);
     return () => window.clearInterval(timer);
-  }, [images.length, paused]);
+  }, [hasMultipleImages, images.length, paused]);
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl"
+      className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white/70 p-1"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -41,19 +45,21 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
           key={`${title}-${src}-${index}`}
           src={src}
           alt={`${title} ${index + 1}`}
-          className={`h-56 w-full object-cover transition-opacity duration-500 sm:h-64 ${
+          className={`${imageHeightClass} w-full rounded-xl border border-gray-200 object-cover transition-opacity duration-500 ${
             index === activeIndex ? "opacity-100" : "opacity-0"
-          } ${index === 0 ? "relative" : "absolute inset-0"}`}
+          } ${index === 0 ? "relative" : "absolute inset-1"}`}
         />
       ))}
-      <div className="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-        {images.map((_, i) => (
-          <span
-            key={`${title}-dot-${i}`}
-            className={`h-1.5 w-1.5 rounded-full ${i === activeIndex ? "bg-white" : "bg-white/45"}`}
-          />
-        ))}
-      </div>
+      {hasMultipleImages && (
+        <div className="pointer-events-none absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5">
+          {images.map((_, i) => (
+            <span
+              key={`${title}-dot-${i}`}
+              className={`h-1.5 w-1.5 rounded-full ${i === activeIndex ? "bg-white" : "bg-white/45"}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -101,11 +107,14 @@ function ProjectsPage({ language }: ProjectsPageProps) {
   const fallbackImage = "/img/background/ia.jpg";
 
   const normalized: StepProject[] = steps.map((step, index) => ({
+    images: (() => {
+      const deduped = Array.from(new Set(step.images || []));
+      return deduped.length > 0 ? deduped : [fallbackImage];
+    })(),
     id: index + 1,
     label: step.label,
     description: language === "fr" ? step.description : (step.descriptionEn || step.description),
     link: step.link,
-    images: (step.images && step.images.length > 0) ? step.images : [fallbackImage],
     stacks: step.stacks || []
   }));
 

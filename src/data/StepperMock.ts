@@ -1,3 +1,10 @@
+import rdpPetriImage from "../assets/image/rdp/rdp-petri.png";
+import rdpPhoneDashboardImage from "../assets/image/rdp/rdp-phone-dashboard.png";
+import phoneDashboardImage from "../assets/image/phone/phone-dashboard.png";
+import cpmImage1 from "../assets/image/cpm/cpm-1.png";
+import cpmImage2 from "../assets/image/cpm/cpm-2.png";
+import cpmImage3 from "../assets/image/cpm/cpm-3.png";
+
 const steps = [
     {
         label: 'Poker Assist',
@@ -30,7 +37,7 @@ const steps = [
         and non-critical tasks to optimize planning
         and prevent delays.`,
         link: "git@github.com:DiaryFenohasina/CPM-Front.git",
-        images: ["/img/background/ia.jpg", "/img/background/woman3.jpeg", "/img/background/ia3.jpg"],
+        images: [cpmImage1, cpmImage2, cpmImage3],
         stacks: ["PHP", "Laravel", "Vue JS", "Redis"]
     },
     {
@@ -40,7 +47,7 @@ const steps = [
         descriptionEn: `Modeling and analysis of concurrent and distributed systems
         using Petri nets.`,
         link: "git@github.com:DiaryFenohasina/RDP-phone-call.git",
-        images: ["/img/background/ia3.jpg", "/img/background/woman3.jpeg", "/img/background/ia.jpg"],
+        images: [rdpPetriImage, rdpPhoneDashboardImage, phoneDashboardImage],
         stacks: ["Javascript", "Node js", "Express js", "React js", "PostgreSQL"]
     },
     {
