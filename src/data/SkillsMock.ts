@@ -23,7 +23,7 @@ const skillsMock = [
   {
     tech: "DevOps & Outils",
     icon: "devops",
-    stack: ["Docker", "Git", "Kafka", "Redis", "CI/CD"],
+    stack: ["Docker", "Git", "Kafka", "Redis"],
     fr: "Docker, Git, Kafka, Redis. Containerisation, gestion de version, communication asynchrone et optimisation des performances.",
     en: "Docker, Git, Kafka, Redis. Containerization, version control, asynchronous communication and performance optimization."
   }
