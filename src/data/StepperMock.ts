@@ -6,6 +6,9 @@ import cpmImage2 from "../assets/image/cpm/cpm-2.png";
 import cpmImage3 from "../assets/image/cpm/cpm-3.png";
 import reservationImage1 from "../assets/image/reservation/reservation-1.png";
 import reservationImage2 from "../assets/image/reservation/reservation-2.png";
+import img1 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-43-27.png"
+import img2 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-45-38.png"
+import img3 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-45-45.png"
 
 const steps = [
     {
@@ -17,7 +20,7 @@ const steps = [
         to evaluate win probabilities according to players, board state,
         and the current hand.`,
         link: "git@github.com:DiaryFenohasina/Poker-Assist.git",
-        images: ["/img/background/woman3.jpeg", "/img/background/ia3.jpg", "/img/background/ia.jpg"],
+        images: [img1, img2, img3],
         stacks: ["Python", "FastAPI"]
     },
     {
