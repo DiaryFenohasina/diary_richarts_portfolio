@@ -9,6 +9,10 @@ import reservationImage2 from "../assets/image/reservation/reservation-2.png";
 import img1 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-43-27.png"
 import img2 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-45-38.png"
 import img3 from "../assets/image/poker/Capture d’écran du 2026-03-05 10-45-45.png"
+import one from "../assets/image/IOT/1.jpeg"
+import two from "../assets/image/IOT/2.jpeg"
+import three from "../assets/image/IOT/3.jpeg"
+
 
 const steps = [
     {
@@ -24,15 +28,27 @@ const steps = [
         stacks: ["Python", "FastAPI"]
     },
     {
-        label: 'E-Poker',
-        description: `Application mobile permettant de gérer une partie de poker entre amis
-        avec gestion des tours, des mises et du suivi des joueurs.`,
-        descriptionEn: `Mobile app to manage poker games between friends,
-        including turn flow, bet management, and player tracking.`,
-        link: "git@github.com:DiaryFenohasina/E-Poker.git",
-        images: ["/img/background/ia3.jpg", "/img/background/ia.jpg", "/img/background/woman3.jpeg"],
-        stacks: ["React Native", "Expo", "SQlite"]
+        label: 'Météo IOT',
+        description: `Application mobile permettant de consulter la météo en temps réel à Madagascar, avec des prévisions et une connectivité de 7 jours.`,
+        descriptionEn: `Mobile application for viewing real-time weather data in Madagascar, including 7-day forecasts and IoT connectivity.`,
+        link: "git@github.com:DiaryFenohasina/IOT-M-t-o.git",
+        images: [
+            one,
+            two,
+            three
+        ],
+        stacks: ["React Native", "Expo", "SQLite"]
     },
+    // {
+    //     label: 'E-Poker',
+    //     description: `Application mobile permettant de gérer une partie de poker entre amis
+    //     avec gestion des tours, des mises et du suivi des joueurs.`,
+    //     descriptionEn: `Mobile app to manage poker games between friends,
+    //     including turn flow, bet management, and player tracking.`,
+    //     link: "git@github.com:DiaryFenohasina/E-Poker.git",
+    //     images: ["/img/background/ia3.jpg", "/img/background/ia.jpg", "/img/background/woman3.jpeg"],
+    //     stacks: ["React Native", "Expo", "SQlite"]
+    // },
     {
         label: 'Critical Path Method (CPM)',
         description: `Technique de gestion de projet permettant d’identifier les tâches
@@ -73,7 +89,7 @@ const steps = [
         with interactive games and age-appropriate learning activities.`,
         link: "git@github.com:DiaryFenohasina/Kidoo-Kids.git",
         images: ["/img/background/ia.jpg", "/img/background/ia3.jpg", "/img/background/woman3.jpeg"],
-        stacks: ["Javascript", "Node js","Express js", "Vue js", "PostgreSQL"]
+        stacks: ["Javascript", "Node js", "Express js", "Vue js", "PostgreSQL"]
     },
     {
         label: 'Menu Radar',
@@ -81,8 +97,8 @@ const steps = [
         descriptionEn: `Platform for comparing and searching restaurants.`,
         link: "git@github.com:DiaryFenohasina/Menu-Radar.git",
         images: [reservationImage1, reservationImage2],
-        stacks: ["Javascript", "Node js","Express js", "React js", "PostgreSQL"]
-    }    
+        stacks: ["Javascript", "Node js", "Express js", "React js", "PostgreSQL"]
+    }
 ];
 
 export default steps;
